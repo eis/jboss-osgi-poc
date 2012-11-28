@@ -3,6 +3,7 @@ package fi.eis.applications.jboss.poc.webapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
-import fi.eis.applications.jboss.poc.osgiservice.api.BundleContextProvider;
 import fi.eis.applications.jboss.poc.osgiservice.api.MessageService;
 
 /**
@@ -25,20 +25,17 @@ import fi.eis.applications.jboss.poc.osgiservice.api.MessageService;
 @WebServlet("/HelloWorld")
 public class HelloWorldServlet extends HttpServlet {
 
-  static String PAGE_HEADER = "<html><head><title>helloworld</title><body>";
-
-  static String PAGE_FOOTER = "</body></html>";
-
   private static Logger log = Logger.getLogger(HelloWorldServlet.class);
 
   private MessageService service = null;
+
+  @Resource
+  BundleContext context;
 
   @Override
   public void init(final ServletConfig config) throws ServletException {
     super.init(config);
 
-    // [TODO] should be an injectable resource
-    final BundleContext context = BundleContextProvider.getBundleContext();
     final HelloWorldServlet servlet = this;
 
     ServiceTracker tracker = new ServiceTracker(context,
@@ -60,6 +57,9 @@ public class HelloWorldServlet extends HttpServlet {
     };
     tracker.open();
   }
+
+  static String PAGE_HEADER = "<html><head><title>helloworld</title><body>";
+  static String PAGE_FOOTER = "</body></html>";
 
   @Override
   protected void doGet(final HttpServletRequest req,
