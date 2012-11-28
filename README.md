@@ -4,3 +4,5 @@ by Thomas Diesler and submitted to
 
 However, as it no longer contains the examples, and as they were in few
 respects out-dated, this is my attempt of replicating some of that.
+
+Build with mvn clean package, deploy with mvn jboss-as:deploy.
