@@ -3,63 +3,47 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-    <name>poc: regular ejb</name>
-    <description>poc: regular ejb</description>
+  <name>poc: regular ejb</name>
+  <description>poc: regular ejb</description>
 
+  <groupId>fi.eis.applications.jboss.poc</groupId>
+  <artifactId>ejb-no-osgi</artifactId>
+  <packaging>jar</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <parent>
     <groupId>fi.eis.applications.jboss.poc</groupId>
-    <artifactId>ejb-no-osgi</artifactId>
-    <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <properties>
-       <!-- JBoss dependency versions -->
-       <version.org.jboss.logging>3.1.1.GA</version.org.jboss.logging>
-       <version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
-       
-       <!-- other plugin versions -->
-       <version.compiler.plugin>2.3.1</version.compiler.plugin>
-       <version.war.plugin>2.1.1</version.war.plugin>
-       
-       <!-- OSGi -->
-       <version.org.osgi>4.2.0</version.org.osgi>
-       
-       <!-- maven-compiler-plugin -->
-       <maven.compiler.target>1.6</maven.compiler.target>
-       <maven.compiler.source>1.6</maven.compiler.source>       
-  </properties>
+    <artifactId>parent</artifactId>
+    <version>0.0.1</version>
+  </parent>
 
-  <!-- Dependencies -->
   <dependencies>
     <dependency>
       <groupId>fi.eis.applications.jboss.poc</groupId>
       <artifactId>osgi-simple-service-api</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
-      <version>6.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
-      <version>${version.org.osgi}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.compendium</artifactId>
-      <version>${version.org.osgi}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.logging</groupId>
       <artifactId>jboss-logging</artifactId>
-      <version>${version.org.jboss.logging}</version>
       <scope>provided</scope>
-    </dependency>   
+    </dependency>
   </dependencies>
 
   <!-- Build -->
@@ -75,26 +59,16 @@
           </archive>
         </configuration>
       </plugin>
-      <!-- JBoss AS plugin to deploy artifact -->
       <plugin>
           <groupId>org.jboss.as.plugins</groupId>
           <artifactId>jboss-as-maven-plugin</artifactId>
-          <version>${version.org.jboss.as.plugins.maven.plugin}</version>
           <configuration>
               <filename>${project.build.finalName}.jar</filename>
           </configuration>
       </plugin>
-
-      <!-- Compiler plugin enforces Java 1.6 compatibility to remove
-          unnecessary warnings about execution environment in IDE -->
       <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>${version.compiler.plugin}</version>
-          <configuration>
-              <source>${maven.compiler.source}</source>
-              <target>${maven.compiler.target}</target>
-          </configuration>
-      </plugin>      
+      </plugin>
     </plugins>
   </build>
 </project>
