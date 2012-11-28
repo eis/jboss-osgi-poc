@@ -5,7 +5,7 @@
   <name>JBoss AS 7 OSGi POC</name>
   <description>JBoss AS 7 OSGi poc</description>
 
-  <groupId>fi.eis.applications.jboss.poc</groupId>
+  <groupId>fi.eis.applications.jboss.poc.parent</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
   <version>0.0.1</version>
@@ -39,6 +39,7 @@
     <module>noosgi-web-app</module>
     <module>osgi-simple-service</module>
     <module>osgi-simple-service-api</module>
+    <module>osgi-web-app</module>
   </modules>
 
   <dependencyManagement>

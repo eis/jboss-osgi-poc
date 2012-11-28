@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0">
+  <display-name>Hello World WAB (Web Application Bundle)</display-name>
+  
+  <servlet>
+    <servlet-name>AnotherHelloWorldServlet</servlet-name>
+    <servlet-class>fi.eis.applications.jboss.poc.wab.AnotherHelloWorldServlet</servlet-class>
+  </servlet>
+   
+  <servlet-mapping>
+    <servlet-name>AnotherHelloWorldServlet</servlet-name>
+    <url-pattern>/hi_to_osgi</url-pattern>
+  </servlet-mapping>
+</web-app>

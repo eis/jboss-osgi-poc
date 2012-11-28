@@ -9,7 +9,7 @@
   <name>poc: regular web app</name>
   <description>poc: regular web app</description>
   <parent>
-    <groupId>fi.eis.applications.jboss.poc</groupId>
+    <groupId>fi.eis.applications.jboss.poc.parent</groupId>
     <artifactId>parent</artifactId>
     <version>0.0.1</version>
   </parent>
@@ -42,13 +42,11 @@
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.core</artifactId>
-        <version>${version.org.osgi}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.compendium</artifactId>
-        <version>${version.org.osgi}</version>
         <scope>provided</scope>
       </dependency>
       <!-- our client interfaces -->

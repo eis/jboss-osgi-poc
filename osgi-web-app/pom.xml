@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0    http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fi.eis.applications.jboss.poc</groupId>
+    <artifactId>osgi-web-app</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>poc: osgi web app</name>
+    <description>poc: osgi web app</description>
+    <parent>
+      <groupId>fi.eis.applications.jboss.poc.parent</groupId>
+      <artifactId>parent</artifactId>
+      <version>0.0.1</version>
+    </parent>
+
+    <dependencies>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.core</artifactId>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
+        <scope>provided</scope>
+      </dependency>      
+      <dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>      
+      <dependency>
+        <groupId>org.jboss.logging</groupId>
+        <artifactId>jboss-logging</artifactId>
+        <scope>provided</scope>
+      </dependency>
+      <!-- our client interfaces -->
+      <dependency>
+        <groupId>fi.eis.applications.jboss.poc</groupId>
+        <artifactId>osgi-simple-service-api</artifactId>
+        <scope>provided</scope>
+      </dependency>      
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <executions>
+                  <execution>
+                    <id>bundle-manifest</id>
+                    <phase>process-classes</phase>
+                    <goals>
+                      <goal>manifest</goal>
+                    </goals>
+                  </execution>
+                </executions>
+                <configuration>
+                    <supportedProjectTypes>
+                      <supportedProjectType>jar</supportedProjectType>
+                      <supportedProjectType>bundle</supportedProjectType>
+                      <supportedProjectType>war</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+                        <Bundle-Activator>fi.eis.applications.jboss.poc.wab.HttpActivator</Bundle-Activator>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-ClassPath>.,WEB-INF/classes</Bundle-ClassPath>
+                        <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                        <Embed-Directory>WEB-INF/lib</Embed-Directory>
+                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <Import-Package>
+                          fi.eis.applications.jboss.poc.osgiservice.api,
+                          javax.annotation,
+                          javax.servlet;version="[2.5,2.5]",
+                          javax.servlet.http;version="[2.5,2.5]",
+                          org.osgi.util.tracker,
+                          org.osgi.service.http,
+                          org.osgi.framework;version="[1.5,2.0)",
+                          org.jboss.logging;version="[3.0,4.0)"
+                        </Import-Package>
+                        <Export-Package>fi.eis.applications.jboss.poc.wab</Export-Package>
+                        <Private-Package />
+                        <Web-ContextPath>/osgi-webapp</Web-ContextPath>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+              <artifactId>maven-war-plugin</artifactId>
+              <configuration>
+                <archive>
+                  <!-- add the generated manifest to the war -->
+                  <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                </archive>
+                <failOnMissingWebXml>true</failOnMissingWebXml>
+                <packagingExcludes>WEB-INF/web.xml</packagingExcludes>                
+              </configuration>
+            </plugin>
+
+            <!-- JBoss AS plugin to deploy artifact -->
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <configuration>
+                    <filename>${project.build.finalName}.war</filename>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

@@ -9,7 +9,7 @@
     <name>poc: simple osgi service api</name>
     <description>poc: simple osgi service api</description>
     <parent>
-      <groupId>fi.eis.applications.jboss.poc</groupId>
+      <groupId>fi.eis.applications.jboss.poc.parent</groupId>
       <artifactId>parent</artifactId>
       <version>0.0.1</version>
     </parent>
