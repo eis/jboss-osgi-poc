@@ -99,8 +99,8 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-			  <groupId>fi.eis.applications.jboss.poc</groupId>
-			  <artifactId>ejb-no-osgi</artifactId>
+        <groupId>fi.eis.applications.jboss.poc</groupId>
+        <artifactId>ejb-no-osgi</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
@@ -126,8 +126,7 @@
             <failOnMissingWebXml>false</failOnMissingWebXml>
 	          <archive>
 	            <manifestEntries>
-               <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.osgi-simple-service-api:0.0.1,deployment.ejb-no-osgi-0.0.1-SNAPSHOT.jar</Dependencies>
-               <Import-Package>org.osgi.core,org.osgi.framework,org.osgi.util.tracker,fi.eis.applications.jboss.poc.osgiservice.api;version="[0.0,1.0)"</Import-Package>
+                  <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.osgi-simple-service-api:0.0.1,deployment.ejb-no-osgi-0.0.1-SNAPSHOT.jar</Dependencies> -->
 	            </manifestEntries>
 	          </archive>               
             </configuration>
