@@ -18,7 +18,6 @@
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <version>${version.org.osgi}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -50,7 +49,6 @@
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.org.jboss.as.plugins.maven.plugin}</version>
                 <configuration>
                     <filename>${project.build.finalName}.jar</filename>
                 </configuration>
@@ -60,11 +58,6 @@
                 unnecessary warnings about execution environment in IDE -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
             </plugin>
 
         </plugins>
