@@ -2,14 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0    http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>fi.eis.applications.jboss.poc</groupId>
     <artifactId>osgi-simple-service-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>poc: simple osgi service api</name>
     <description>poc: simple osgi service api</description>
-
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following
@@ -53,14 +51,14 @@
                 <extensions>true</extensions>
                 <configuration>
                 <instructions>
-			            <Bundle-SymbolicName>${artifactId}</Bundle-SymbolicName>
-			            <Bundle-Version>0.0.1</Bundle-Version>
-			            <Export-Package>
-			              fi.eis.applications.jboss.poc.osgiservice.api;version=0.0.1
-			            </Export-Package>
-			            <Import-Package>
-			              org.osgi.framework;version="[1.5,2.0)"
-			            </Import-Package>
+                  <Bundle-SymbolicName>${artifactId}</Bundle-SymbolicName>
+                  <Bundle-Version>0.0.1</Bundle-Version>
+                  <Export-Package>
+                    fi.eis.applications.jboss.poc.osgiservice.api;version=0.0.1
+                  </Export-Package>
+                  <Import-Package>
+                    org.osgi.framework;version="[1.5,2.0)"
+                  </Import-Package>
                  </instructions>
                 </configuration>
             </plugin>
