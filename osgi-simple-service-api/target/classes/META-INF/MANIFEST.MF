@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Export-Package: fi.eis.applications.jboss.poc.osgiservice.api;uses:="o
+ rg.osgi.framework";version="0.0.1"
+Built-By: Blackstorm
+Tool: Bnd-1.15.0
+Bundle-Name: poc: simple osgi service api
+Created-By: Apache Maven Bundle Plugin
+Bundle-Version: 0.0.1
+Build-Jdk: 1.7.0_07
+Bnd-LastModified: 1354095970807
+Bundle-ManifestVersion: 2
+Bundle-Description: poc: simple osgi service api
+Import-Package: org.osgi.framework;version="[1.5,2.0)"
+Bundle-SymbolicName: osgi-simple-service-api
+
