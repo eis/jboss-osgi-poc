@@ -40,7 +40,6 @@
                     an OSGi Bundle -->
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>${version.bundle.plugin}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
