@@ -1,6 +1,7 @@
 package fi.eis.applications.jboss.poc.osgiservice;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,7 +38,7 @@ public class JDBCService implements MessageService {
 			ds = getDataSource();
 			conn = getConnection(ds);
 			addData(conn);
-			return "Got from database: " + getResultFrom(conn, "Hello");
+			return "Got from database: " + getResultFrom(conn, "Hello%");
 		} catch (IllegalStateException ex) {
 			log.error("error working with data source", ex);
 			return "Error working with data source: " + ex.getMessage();
@@ -56,68 +57,39 @@ public class JDBCService implements MessageService {
 	 * @url http://stackoverflow.com/questions/6641737/how-to-use-full-text-search-in-h2-database
 	 */
 	private String getResultFrom(Connection conn, String searchWord) {
-		final String GET_FT_SEARCH_SCORE =
-			String.format("SELECT * FROM FT_SEARCH('%s', 0, 0)", searchWord);
-		final String GET_FT_SEARCH_DATA =
-			String.format(
-				"SELECT T.* FROM FT_SEARCH_DATA('%s', 0, 0) FT, TEST T"+
-				" WHERE FT.TABLE='TEST' AND T.ID=FT.KEYS[0]", searchWord);
+		final String GET_NAME =
+			"SELECT name FROM test WHERE name LIKE ?";
 
-		String score = null, query = null;
-		
-		Statement st = null;
+		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			st = conn.createStatement();
-			rs = st.executeQuery(GET_FT_SEARCH_SCORE);
+			ps = conn.prepareStatement(GET_NAME);
+			ps.setString(1, searchWord);
+			rs = ps.executeQuery();
 			if (rs.next()) {
-				score = rs.getString("score");
+				return rs.getString("name");
 			}
 		} catch (SQLException e) {
 			throw new IllegalStateException(e);
 		} finally {
 			close(rs);
-			close(st);
+			close(ps);
 		}
-		
-		try {
-			st = conn.createStatement();
-			rs = st.executeQuery(GET_FT_SEARCH_DATA);
-			if (rs.next()) {
-				query = rs.getString("name");
-			}
-		} catch (SQLException e) {
-			throw new IllegalStateException(e);
-		} finally {
-			close(rs);
-			close(st);
-		}
-		
-		return String.format("%s (score: %s)", query, score);
+		return "";
 	}
 
 	private void addData(Connection conn) {
-		final String CREATE_FULLTEXT_INIT = "CREATE ALIAS IF NOT EXISTS FT_INIT FOR \"org.h2.fulltext.FullText.init\"";
-		final String CALL_FULLTEXT_INIT = "CALL FT_INIT()";
-		final String DROP_PREV_TABLE = "DROP TABLE TEST IF EXISTS";
-		final String CREATE_TABLE = "CREATE TABLE TEST(ID INT PRIMARY KEY, NAME VARCHAR)";
-		final String INSERT_DATA = "INSERT INTO TEST VALUES(1, 'Hello World')";
-		final String DROP_PREV_INDEX = "CALL FT_DROP_INDEX('PUBLIC', 'TEST')";
-		final String CREATE_INDEX = "CALL FT_CREATE_INDEX('PUBLIC', 'TEST', NULL)";
-		final String REINDEX = "CALL FT_REINDEX()";
+		final String DROP_PREV_TABLE = "DROP TABLE test IF EXISTS";
+		final String CREATE_TABLE = "CREATE TABLE test(id INT PRIMARY KEY, name VARCHAR)";
+		final String INSERT_DATA = "INSERT INTO test VALUES(1, 'Hello World')";
 		
 		Statement st = null;
 		try {
 			st = conn.createStatement();
-			st.execute(CREATE_FULLTEXT_INIT);
-			st.execute(CALL_FULLTEXT_INIT);
 			st.execute(DROP_PREV_TABLE);
 			st.execute(CREATE_TABLE);
 			st.execute(INSERT_DATA);
-			st.execute(DROP_PREV_INDEX);
-			st.execute(CREATE_INDEX);
-			st.execute(REINDEX);
 		} catch (SQLException e) {
 			throw new IllegalStateException(e);
 		} finally {
