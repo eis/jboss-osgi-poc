@@ -13,7 +13,7 @@ public class ServiceActivator implements BundleActivator {
   public void start(final BundleContext context) throws Exception {
     log.info("Registering my service");
 
-    MessageService service = new SimpleMessageService();
+    MessageService service = new JDBCService();
 
     context.registerService(MessageService.class.getName(), service, null);
   }
