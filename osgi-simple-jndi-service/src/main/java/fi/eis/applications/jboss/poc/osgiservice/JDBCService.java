@@ -1,5 +1,10 @@
 package fi.eis.applications.jboss.poc.osgiservice;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -18,30 +23,122 @@ public class JDBCService implements MessageService {
 
 	private static final String JBOSS_DEFAULT_DATA_SOURCE_JNDI_NAME = "java:jboss/datasources/ExampleDS";
 
-	BundleContext context;
+	private static final String JBOSS_DEFAULT_DATA_SOURCE_PASS = "sa";
+
+	private static final String JBOSS_DEFAULT_DATA_SOURCE_USER = "sa";
 
 	@Override
 	public String getMessage() {
 
 		DataSource ds = null;
+		Connection conn = null;
 		
 		try {
 			ds = getDataSource();
+			conn = getConnection(ds);
+			addData(conn);
+			return "Got from database: " + getResultFrom(conn);
 		} catch (IllegalStateException ex) {
-			log.error("error getting data source", ex);
-			return "Error getting data source: " + ex.getMessage();
+			log.error("error working with data source", ex);
+			return "Error working with data source: " + ex.getMessage();
+		} finally {
+			close(conn);
 		}
-
-		log.info("lookup result is " + ds);
-
-		return "JNDI lookup result: " + ds;
-
 	}
 
 
-	private DataSource getDataSource() {
 
-		context = FrameworkUtil.getBundle(JDBCService.class).getBundleContext();
+	/**
+	 * For the sake of testing, we do a search here.
+	 * 
+	 * @param conn connection to the database containig data
+	 * @return query result
+	 */
+	private String getResultFrom(Connection conn) {
+		final String GET_NAME = "SELECT NAME FROM TEST";
+		
+		Statement st = null;
+		ResultSet rs = null;
+		
+		String result = null;
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(GET_NAME);
+			if (rs.next()) {
+				result = rs.getString("NAME");
+			}
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			close(rs);
+			close(st);
+		}
+		return result;
+	}
+
+	private void addData(Connection conn) {
+		final String DROP_PREV_TABLE = "DROP TABLE TEST IF EXISTS";
+		final String CREATE_TABLE = "CREATE TABLE TEST(ID INT PRIMARY KEY, NAME VARCHAR)";
+		final String INSERT_DATA = "INSERT INTO TEST VALUES(1, 'Hello World')";
+		
+		Statement st = null;
+		try {
+			st = conn.createStatement();
+			st.execute(DROP_PREV_TABLE);
+			st.execute(CREATE_TABLE);
+			st.execute(INSERT_DATA);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		} finally {
+			close(st);
+		}
+		
+	}
+
+	private void close(ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				throw new IllegalStateException("Couldn't close", e);
+			}
+		}
+	}
+
+	private void close(Statement st) {
+		if (st != null) {
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new IllegalStateException("Couldn't close", e);
+			}
+		}
+	}
+
+
+	private void close(Connection conn) {
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				throw new IllegalStateException("Couldn't close", e);
+			}
+		}
+	}
+
+
+	private static Connection getConnection(DataSource ds) {
+		try {
+			return ds.getConnection(JBOSS_DEFAULT_DATA_SOURCE_USER, JBOSS_DEFAULT_DATA_SOURCE_PASS);
+		} catch (SQLException e) {
+			throw new IllegalStateException("Getting a connection failed", e);
+		}
+	}
+
+
+	private static DataSource getDataSource() {
+
+		BundleContext context = FrameworkUtil.getBundle(JDBCService.class).getBundleContext();
 		log.debug("context is " + context);
 
 		// obtain JNDIContextManager service from the OSGi BundleContext
