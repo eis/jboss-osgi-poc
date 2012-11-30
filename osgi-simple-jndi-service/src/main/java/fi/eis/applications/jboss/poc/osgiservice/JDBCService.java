@@ -50,11 +50,11 @@ public class JDBCService implements MessageService {
 
 
 	/**
-	 * For the sake of testing, we do a full-text search here.
+	 * For the sake of testing, we do a roundtrip to database here.
 	 * 
-	 * @param conn connection to the database containig data
-	 * @return search data as well as the score for that data
-	 * @url http://stackoverflow.com/questions/6641737/how-to-use-full-text-search-in-h2-database
+	 * @param conn connection to the database containing data
+	 * @param searchWord what word do we want to search with
+	 * @return what we were able to find
 	 */
 	private String getResultFrom(Connection conn, String searchWord) {
 		final String GET_NAME =
