@@ -3,28 +3,17 @@ package fi.eis.applications.jboss.poc.wab;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.annotation.Resource;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.logging.Logger;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-import org.osgi.util.tracker.ServiceTracker;
-
-import fi.eis.applications.jboss.poc.osgiservice.api.MessageService;
-
-/**
- */
 @SuppressWarnings("serial")
 public class AnotherHelloWorldServlet extends HttpServlet {
 
-  private static Logger log = Logger.getLogger(AnotherHelloWorldServlet.class);
-
+  // TODO fix to use bundle dependency instead of static text
   /*
+  private static Logger log = Logger.getLogger(AnotherHelloWorldServlet.class);
 
   
   private MessageService service = null;
