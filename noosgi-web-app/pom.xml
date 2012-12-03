@@ -81,7 +81,7 @@
             <failOnMissingWebXml>false</failOnMissingWebXml>
             <archive>
               <manifestEntries>
-                <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.osgi-simple-service-api:0.0.1,deployment.ejb-no-osgi-0.0.1-SNAPSHOT.jar</Dependencies>
+                <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.osgi-simple-service-api:0.0.2,deployment.ejb-no-osgi-0.0.1-SNAPSHOT.jar</Dependencies>
               </manifestEntries>
             </archive>
             </configuration>

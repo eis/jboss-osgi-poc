@@ -39,6 +39,7 @@
     <module>noosgi-web-app</module>
     <module>osgi-simple-service</module>
     <module>osgi-simple-jndi-service</module>
+    <module>osgi-simple-jta-service</module>
     <module>osgi-simple-service-api</module>
     <module>osgi-web-app</module>
   </modules>
@@ -49,7 +50,7 @@
       <dependency>
         <groupId>fi.eis.applications.jboss.poc</groupId>
         <artifactId>osgi-simple-service-api</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2</version>
         <scope>provided</scope>
       </dependency>
       <dependency>

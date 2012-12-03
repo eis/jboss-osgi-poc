@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fi.eis.applications.jboss.poc</groupId>
     <artifactId>osgi-simple-service-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>bundle</packaging>
     <name>poc: simple osgi service api</name>
     <description>poc: simple osgi service api</description>
@@ -13,6 +13,9 @@
       <artifactId>parent</artifactId>
       <version>0.0.1</version>
     </parent>
+    <properties>
+        <version.bundle>0.0.2</version.bundle>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -34,9 +37,9 @@
                 <configuration>
                 <instructions>
                   <Bundle-SymbolicName>${artifactId}</Bundle-SymbolicName>
-                  <Bundle-Version>0.0.1</Bundle-Version>
+                  <Bundle-Version>${version.bundle}</Bundle-Version>
                   <Export-Package>
-                    fi.eis.applications.jboss.poc.osgiservice.api;version=0.0.1
+                    fi.eis.applications.jboss.poc.osgiservice.api;version=${version.bundle}
                   </Export-Package>
                   <Import-Package>
                     org.osgi.framework;version="[1.5,2.0)"
