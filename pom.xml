@@ -42,6 +42,7 @@
     <module>osgi-simple-jta-service</module>
     <module>osgi-simple-service-api</module>
     <module>osgi-web-app</module>
+	<module>petclinic</module>
   </modules>
 
   <dependencyManagement>
