@@ -11,6 +11,11 @@
 		<spring.version>3.0.6.RELEASE</spring.version>
 		<slf4j.version>1.5.6</slf4j.version>
 	</properties>
+    <parent>
+      <groupId>fi.eis.applications.jboss.poc.parent</groupId>
+      <artifactId>parent</artifactId>
+      <version>0.0.1</version>
+    </parent>	
 	<dependencies>
 
 		<!-- Spring -->
@@ -226,6 +231,24 @@
 			<version>1.1.0</version>
 			<scope>test</scope>
 		</dependency>
+        <!-- OSGi specifics -->
+        <dependency>
+          <groupId>org.osgi</groupId>
+          <artifactId>org.osgi.core</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.osgi</groupId>
+          <artifactId>org.osgi.compendium</artifactId>
+          <scope>provided</scope>
+        </dependency>
+      <!-- our client interfaces -->
+      <dependency>
+        <groupId>fi.eis.applications.jboss.poc</groupId>
+        <artifactId>osgi-simple-service-api</artifactId>
+        <scope>provided</scope>
+      </dependency>
+      		
 
 	</dependencies>
 	<repositories>
@@ -275,6 +298,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+		            <archive>
+		              <manifestEntries>
+		                <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.osgi-simple-service-api:0.0.2</Dependencies>
+		              </manifestEntries>
+		            </archive>
+	            </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
