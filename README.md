@@ -45,7 +45,7 @@ The status is the following.
     <tr>
         <td>JNDI with OSGi bundle</td>
         <td>OK</td>
-        <td>JBoss 7.1 does not support, needs [Aries JNDI](http://aries.apache.org/modules/jndiproject.html) installed</td>
+        <td>JBoss 7.1 does not support, needs <a href="http://aries.apache.org/modules/jndiproject.html">Aries JNDI</a> installed</td>
     </tr>
     <tr>
         <td>JMS with OSGi bundle</td>
