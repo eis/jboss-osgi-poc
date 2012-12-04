@@ -11,7 +11,7 @@ The status is the following.
 
 <table>
     <tr>
-        <th>Feature</th>
+        <th>Capability</th>
         <th>Status</th>
         <th>Notes</th>
     </tr>
@@ -21,29 +21,31 @@ The status is the following.
         <td></td>
     </tr>
     <tr>
-        <td>war - osgibundle -communication</td>
+        <td>war - osgibundle communication</td>
         <td>OK</td>
         <td></td>
     </tr>
     <tr>
-        <td>ejb - osgibundle -communication</td>
+        <td>ejb - osgibundle communication</td>
         <td>OK</td>
         <td></td>
     </tr>
     <tr>
         <td>wab (OSGi war)</td>
         <td>OK</td>
-        <td></td>
+        <td>Note really recommended in JBoss 7.1. JBoss does not directly support at that version, but
+		forks a Jetty process for these, so they don't get the full set on features.
+		Support will be in 7.2.</td>
     </tr>
     <tr>
-        <td>wab - osgibundle -communication</td>
+        <td>wab - osgibundle communication</td>
         <td>OK</td>
         <td></td>
     </tr>
     <tr>
         <td>JNDI with OSGi bundle</td>
         <td>OK</td>
-        <td>JBoss 7.1 does not support, needs Aries JNDI installed</td>
+        <td>JBoss 7.1 does not support, needs [Aries JNDI](http://aries.apache.org/modules/jndiproject.html) installed</td>
     </tr>
     <tr>
         <td>JMS with OSGi bundle</td>
